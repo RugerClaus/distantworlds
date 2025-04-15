@@ -6,3 +6,15 @@ app states. I have laid the foundation for keeping track of the state of everyth
 here and I think this will bring me to a point where I can finally full integrate game mechanics properly and cleanly. 
 
 Give it up for Distant Worlds
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Alpha 0.1.1 ---- LOG
+
+You can now do something other than view a menu. There is now music, and the sound engine has been implemented almost fully and is extensible. I have made it possible to
+pause the game, toggle the music and sound effects in the pause menu, and the state is constantly logged. Created directory for logs as well as a state log file, which I'd like
+to use to log state changes and save it as a new log. Perhaps dump the logs that are older than 5 iterations. The structure of the program is far more streamlined in this
+version unlike the "infinite" repository. 
+
+Ultimately this is panning out to be superior for scalability.

@@ -3,6 +3,7 @@ from core.state.appstate import APPSTATE
 from sys import exit as ex
 from ui.menus.menu import Menu
 from core.game.game import Game
+from core.sound.sound import SoundManager
 
 class Window():
     def __init__(self, version, state_manager):
@@ -16,16 +17,17 @@ class Window():
         pygame.display.set_caption(self.title)
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.clock = pygame.time.Clock()
-        self.game = Game()
-        self.menu = Menu(self.state,self.screen)  # Menu also shares the same state manager
+        self.menu = Menu(self.state,self)  # Menu also shares the same state manager
+        self.sound = SoundManager()
 
     def main_loop(self):
         while True:
             self.input()
-
+            self.sound.play_music("menu")
             if self.state.is_app_state(APPSTATE.MAIN_MENU):
-                self.menu.render_main()  # you could swap `pass` for real logic
+                self.menu.render_main()
             elif self.state.is_app_state(APPSTATE.GAME_ACTIVE):
+                self.sound.stop_music()
                 self.start_game()
             elif self.state.is_app_state(APPSTATE.OPTIONS_MENU):
                 self.menu.render_options()
@@ -37,14 +39,18 @@ class Window():
             self.clock.tick(60)
 
     def start_game(self):
-        # self.game.start()  # Game logic would go here
+        game = Game(self.state,self)
+        game.game_loop()
         print("starting game...")
-        
+
     def input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                ex()
+                self.quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.screen.fill((255,0,0))
+
+    def quit(self):
+        pygame.quit()
+        ex()

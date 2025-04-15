@@ -11,7 +11,7 @@ class FontEngine():
             self.default_font()
 
     def button_font(self):
-        self.font = pygame.font.Font('assets/font/Pixeltype.ttf', 30)
+        self.font = pygame.font.Font('assets/font/Pixeltype.ttf', 50)
         
     def default_font(self):
         self.font = pygame.font.Font('assets/font/Pixeltype.ttf', 25)

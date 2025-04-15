@@ -4,19 +4,16 @@ from core.state.appstate import APPSTATE
 from ui.button import Button
 
 class Menu:
-    def __init__(self, state_manager: StateManager,screen):
+    def __init__(self, state_manager: StateManager,window):
         self.state = state_manager
-        self.screen = screen
+        self.window = window
+        self.screen = window.screen
 
     def update(self):
         if self.state.is_app_state(APPSTATE.MAIN_MENU):
             self.render_main()
         elif self.state.is_app_state(APPSTATE.OPTIONS_MENU):
             self.render_options()
-        elif self.state.is_app_state(APPSTATE.GAME_ACTIVE):
-            # You probably wouldn't do this in the menu,
-            # but this is how the check would look.
-            print("In Game Active State, Menu might hide or update differently.")
 
     def render_main(self):
         button_unhovered_color = "orange"
@@ -43,14 +40,14 @@ class Menu:
         self.handle_ui_events([play_button, options_button, quit_button])
     
     def play_game(self):
-        self.state.set_state(APPSTATE.GAME_ACTIVE)
+        self.state.set_app_state(APPSTATE.GAME_ACTIVE)
         
     def load_options(self):
         # this will handle the logic for loading the 
         # self.state.set_state(APPSTATE.OPTIONS_MENU)
         pass    
     def quit_game(self):
-        self.state.set_state(APPSTATE.QUIT)
+        self.state.set_app_state(APPSTATE.QUIT)
 
     def handle_ui_events(self, buttons):
         while True:
