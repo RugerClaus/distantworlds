@@ -1,0 +1,8 @@
+Alpha 0.1.0 ---- LOG
+
+Okay, here we go again. This is the official reboot for https://github.com/rugerclaus/infinite
+I have an official title now. I have began the rework with a fresh repo for saving myself time and pain. I have started out with a state machine to manage all the 
+app states. I have laid the foundation for keeping track of the state of everything in the game. Especially entities. No game logic, but there is definitely a great structure
+here and I think this will bring me to a point where I can finally full integrate game mechanics properly and cleanly. 
+
+Give it up for Distant Worlds
