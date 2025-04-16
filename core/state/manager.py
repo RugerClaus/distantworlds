@@ -41,10 +41,10 @@ class StateManager:
                 print("[GAMESTATE ERROR] Can't set GAMESTATE outside of GAME_ACTIVE.")
             return
         self.game_state = new_game_state
-        if self.debug:
-            print(f"[GAMESTATE] Now: {self.game_state.name}")
+        # if self.debug:
+        #     print(f"[GAMESTATE] Now: {self.game_state.name}")
 
     def set_player_state(self, new_player_state):
         self.player_state = new_player_state
-        if self.debug:
-            print(f"[PLAYERSTATE] Now: {self.player_state.name}")
+        # if self.debug:
+        #     print(f"[PLAYERSTATE] Now: {self.player_state.name}")

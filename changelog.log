@@ -18,3 +18,12 @@ to use to log state changes and save it as a new log. Perhaps dump the logs that
 version unlike the "infinite" repository. 
 
 Ultimately this is panning out to be superior for scalability.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Alpha 0.1.2 ---- LOG
+
+You can now enter the game, play around with the player. There is some jumping and movement mechanics and a level changing mechanic. Gotta figure out how to place 
+the door correctly, but it's just an offset. Beyond that, you can switch to the second world (jungle) and I have integrated a ton of world mechanics. There is a LevelManager 
+to handle the level and transitions. There is a world class where every level is a world. There can be unlimited worlds. There will be world data at some point that direct most 
+of the world properties like objects, entities and obstacles.

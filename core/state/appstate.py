@@ -5,3 +5,4 @@ class APPSTATE(Enum):
     OPTIONS_MENU = auto()
     GAME_ACTIVE = auto()
     QUIT = auto()
+    DEBUG = auto()

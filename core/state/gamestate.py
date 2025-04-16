@@ -12,6 +12,7 @@ class PLAYERSTATE(Enum):
     MOVING_LEFT = auto()
     MOVING_RIGHT = auto()
     JUMPING = auto()
+    STUNNED = auto()
 
 class ENEMYSTATE(Enum):
     pass

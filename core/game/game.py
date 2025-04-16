@@ -2,6 +2,10 @@ import pygame
 from core.state.appstate import APPSTATE
 from core.state.gamestate import *
 from ui.menus.pause import PauseMenu
+from core.game.levelmanager import LevelManager
+from core.game.entities.player import Player
+from core.game.entities.door import Door
+from util.debug import DebugMenu
 
 class Game:
     def __init__(self, state_manager, window):
@@ -19,6 +23,13 @@ class Game:
             self.go_to_main_menu,
             self.window.quit
         )
+        self.worlds = ["ice","jungle"]
+        self.level_manager = LevelManager(self)
+        self.level_manager.load_world(self.worlds[0])
+        self.player = Player(self.screen,self,self.window.sound)
+        self.door = Door(self.screen)
+        self.debug = DebugMenu(self.screen,self.window,self)
+        self.door.rect.centerx = 500
 
     def toggle_music(self):
         self.window.sound.toggle_music("game")
@@ -40,7 +51,7 @@ class Game:
         self.window.sound.play_music("game")
         while self.running:
             self.input()
-            self.screen.fill(self.color)
+            
 
             if self.pause_state:
                 self.state.set_game_state(GAMESTATE.PAUSED)
@@ -49,6 +60,17 @@ class Game:
 
             if self.state.is_game_state(GAMESTATE.PAUSED):
                 self.pause_menu.draw()
+            if not self.state.is_game_state(GAMESTATE.PAUSED):
+                self.level_manager.update()
+                self.level_manager.render()
+                self.player.update()
+                self.player.draw()
+                self.door.draw()
+                # print(self.player.rect.left)
+                if self.player.rect.colliderect(self.door.rect):
+                    self.level_manager.transition_to("jungle")
+            if self.debug.on:
+                self.debug.update(None)
 
             pygame.display.flip()
             self.window.clock.tick(60)
@@ -64,7 +86,15 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.toggle_pause()
-                if event.key == pygame.K_1:
-                    self.color = "red"
-                if event.key == pygame.K_2:
-                    self.color = "white"
+                if event.key == pygame.K_d:
+                    self.player.intent = PLAYERSTATE.MOVING_RIGHT
+                elif event.key == pygame.K_a:
+                    self.player.intent = PLAYERSTATE.MOVING_LEFT
+                elif event.key == pygame.K_SPACE:
+                    self.player.jump()
+                elif event.key == pygame.K_F9:
+                    self.debug.toggle()
+
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_d, pygame.K_a]:
+                    self.player.intent = PLAYERSTATE.HOLDING_STILL
